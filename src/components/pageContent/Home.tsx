@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import {
   DndContext,
   closestCorners,
@@ -14,72 +13,19 @@ import {
   DragOverEvent,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { TaskCard } from "@/components/kanbanBoard/SortableCard";
+import { TaskCard } from "@/components/kanbanBoard/TaskCard";
 import { useAppContext } from "@/components/kanbanBoard/contexts";
 import { TaskList } from "@/components/kanbanBoard/List";
-import { CardType, PriorityType } from "@/components/kanbanBoard/types";
+import Modal from "@/components/kanbanBoard/Modal";
 
-const initialCards: CardType[] = [
-  {
-    id: "card1",
-    content: "Task 1",
-    listId: "todo",
-    title: "First",
-    priority: "LOW",
-    dueDate: new Date().toString(),
-    imageSrc: "https://picsum.photos/seed/picsum/200/300",
-  },
-  {
-    id: "card2",
-    content: "Task 2",
-    listId: "inprogress",
-    title: "Firstond",
-    priority: "MEDIUM",
-    dueDate: new Date(1600000000000).toString(),
-    imageSrc: "https://picsum.photos/seed/picsum/200/300",
-  },
-  {
-    id: "card3",
-    content: "Task 3",
-    listId: "done",
-    title: "Ford",
-    priority: "HIGH",
-    dueDate: new Date(1800000000000).toString(),
-  },
-  {
-    id: "card4",
-    content: "Task 4",
-    listId: "done",
-    title: "Feet",
-    priority: "LOW",
-    dueDate: new Date().toString(),
-  },
-  {
-    id: "card5",
-    content: "Task 5",
-    listId: "done",
-    title: "Seat",
-    priority: "MEDIUM",
-    dueDate: new Date(1850000000000).toString(),
-  },
-  {
-    id: "card6",
-    content: "Task 6",
-    listId: "done",
-    title: "Se'un",
-    priority: "HIGH",
-    dueDate: new Date(1720000000000).toString(),
-  },
+const lists = [
+  { id: "todo", title: "To Do" },
+  { id: "inprogress", title: "In Progress" },
+  { id: "done", title: "Done" },
 ];
 
 const HomeContent = () => {
-  const { activeCardId, setActiveCardId } = useAppContext();
-  const [lists, setLists] = useState([
-    { id: "todo", title: "To Do" },
-    { id: "inprogress", title: "In Progress" },
-    { id: "done", title: "Done" },
-  ]);
-  const [cards, setCards] = useState<CardType[]>(initialCards);
+  const { cards, setCards, activeCardId, setActiveCardId } = useAppContext();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -140,31 +86,34 @@ const HomeContent = () => {
   };
 
   return (
-    <DndContext
-      sensors={sensors}
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-      collisionDetection={closestCorners}
-    >
-      <div className="gap-4 grid grid-cols-3 h-full max-h-full overflow-x-auto overflow-y-hidden">
-        {lists.map((list) => (
-          <TaskList
-            key={list.id}
-            list={list}
-            cards={cards.filter((card) => card.listId === list.id)}
-          />
-        ))}
-      </div>
-      <DragOverlay>
-        {activeCardId ? (
-          <TaskCard
-            card={cards.find((card) => card.id === activeCardId)!}
-            isDragOverlay
-          />
-        ) : null}
-      </DragOverlay>
-    </DndContext>
+    <>
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCorners}
+      >
+        <div className="gap-4 grid grid-cols-3 h-full max-h-full overflow-x-auto overflow-y-hidden">
+          {lists.map((list) => (
+            <TaskList
+              key={list.id}
+              list={list}
+              cards={cards.filter((card) => card.listId === list.id)}
+            />
+          ))}
+        </div>
+        <DragOverlay>
+          {activeCardId ? (
+            <TaskCard
+              card={cards.find((card) => card.id === activeCardId)!}
+              isDragOverlay
+            />
+          ) : null}
+        </DragOverlay>
+      </DndContext>
+      <Modal />
+    </>
   );
 };
 

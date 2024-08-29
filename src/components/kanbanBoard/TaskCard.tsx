@@ -49,20 +49,21 @@ export const TaskCard = ({
           "text-[#e6ecf6] bg-[#e6ecf6] outline-dashed outline-[#7fa1e4]"
       )}
     >
-      <PriorityBadge priority={card.priority} />
-      <CardHeader title={card.title} />
-      <CardImage src={card.imageSrc} alt={card.title} />
       <div
         className="cursor-grab active:cursor-grabbing"
         {...attributes}
         {...listeners}
       >
-        <p className="mt-2 text-sm">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis
-          fuga, magnam soluta assumenda placeat, quas fugit inventore sunt illo
-          optio doloremque quod facilis cum ab perspiciatis tempore magni
-          architecto quos?
-        </p>
+        <PriorityBadge priority={card.priority} />
+      </div>
+      <CardHeader card={card} />
+      <div
+        className="cursor-grab active:cursor-grabbing"
+        {...attributes}
+        {...listeners}
+      >
+        <CardImage src={card.imageSrc} alt={card.title} />
+        <p className="mt-2 text-sm">{card.description}</p>
         <div className="flex items-center gap-2 mt-4 font-medium text-xs">
           <StatusFlag status={taskStatus} />
           <span>{formatDate(new Date(card.dueDate), { month: "short" })}</span>

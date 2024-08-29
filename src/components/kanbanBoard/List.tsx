@@ -8,36 +8,50 @@ import {
 import { PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import SortablePlaceholder from "@/components/kanbanBoard/SortablePlaceholder";
-import { TaskCard } from "@/components/kanbanBoard/SortableCard";
+import { TaskCard } from "@/components/kanbanBoard/TaskCard";
+import { useAppContext } from "@/components/kanbanBoard/contexts";
+import { CardType } from "@/components/kanbanBoard/types";
 
 export const TaskList = ({
   list,
   cards,
 }: {
   list: { title: string; id: UniqueIdentifier };
-  cards: { id: string; content: string; listId: string }[];
+  cards: CardType[];
 }) => {
+  const { setCurrentListId, setCurrentCard, handleOpenModal } = useAppContext();
   const { setNodeRef } = useDroppable({
     id: list.id,
   });
 
   const count = cards.length;
 
-  const ListHeader = () => (
-    <div className="flex justify-between items-center gap-2">
-      <div className="flex items-center gap-2 font-medium">
-        <span>{list.title}</span>
-        {Boolean(count) && (
-          <span className="bg-[#DDDDDD] px-2 py-0.5 rounded text-sm">
-            {count}
-          </span>
-        )}
+  const ListHeader = () => {
+    const handleClick = () => {
+      setCurrentListId(String(list.id));
+      setCurrentCard(null);
+      handleOpenModal();
+    };
+
+    return (
+      <div className="flex justify-between items-center gap-2">
+        <div className="flex items-center gap-2 font-medium">
+          <span>{list.title}</span>
+          {Boolean(count) && (
+            <span className="bg-[#DDDDDD] px-2 py-0.5 rounded text-sm">
+              {count}
+            </span>
+          )}
+        </div>
+        <button
+          onClick={handleClick}
+          className="hover:scale-110 border border-transparent hover:border-border rounded transition-all"
+        >
+          <PlusIcon className="p-1 w-6 h-6" />
+        </button>
       </div>
-      <button className="hover:scale-110 border border-transparent hover:border-border rounded transition-all">
-        <PlusIcon className="p-1 w-6 h-6" />
-      </button>
-    </div>
-  );
+    );
+  };
 
   return (
     <div

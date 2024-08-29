@@ -1,4 +1,5 @@
-import { PriorityType } from "@/components/kanbanBoard/types";
+import { useAppContext } from "@/components/kanbanBoard/contexts";
+import { CardType, PriorityType } from "@/components/kanbanBoard/types";
 import {
   HoverCard,
   HoverCardContent,
@@ -70,9 +71,9 @@ export const CardImage = ({ src = "", alt = "" }) => {
         <Image
           src={src || "/#"}
           alt={alt}
-          width={200}
-          height={100}
-          className="mt-2 rounded-md w-full max-h-24 hover:cursor-context-menu object-cover"
+          width={300}
+          height={120}
+          className="mt-2 rounded-md w-full max-h-32 hover:cursor-context-menu object-cover"
         />
       </HoverCardTrigger>
       <HoverCardContent className="max-w-[80vw] md:max-w-[50vw]">
@@ -88,36 +89,63 @@ export const CardImage = ({ src = "", alt = "" }) => {
   );
 };
 
-const MenuButton = () => (
-  <Popover>
-    <PopoverTrigger asChild>
-      <button
-        className="relative z-10 place-items-center grid px-1 border rounded-md aspect-square"
-        type="button"
-      >
-        <DotsHorizontalIcon className="size-4" />
-      </button>
-    </PopoverTrigger>
-    <PopoverContent className="grid p-0 border w-fit text-xs">
-      <button
-        type="button"
-        className="hover:bg-foreground/5 px-3 pt-2 pb-1 text-[#252C32] text-left transition-colors"
-      >
-        Edit
-      </button>
-      <button
-        type="button"
-        className="hover:bg-foreground/5 px-3 pt-1 pb-2 text-[#E60C02] text-left transition-colors"
-      >
-        Delete
-      </button>
-    </PopoverContent>
-  </Popover>
-);
+const MenuButton = ({ card }: { card: CardType }) => {
+  const { setCards, setCurrentCard, setCurrentListId, handleOpenModal } =
+    useAppContext();
 
-export const CardHeader = ({ title = "" }) => (
+  const handleEdit = () => {
+    setCurrentListId(String(card.listId));
+    setCurrentCard(card);
+    handleOpenModal();
+  };
+
+  const handleDelete = () => {
+    setCards((prev) => {
+      const updatingSet = [...prev];
+
+      const toBeDeletedIdx = updatingSet.findIndex((el) => el.id === card.id);
+      updatingSet.splice(toBeDeletedIdx, 1);
+
+      return updatingSet;
+    });
+  };
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          className="relative z-10 place-items-center grid px-1 border rounded-md aspect-square"
+          type="button"
+        >
+          <DotsHorizontalIcon className="size-4" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        hideWhenDetached
+        className="grid p-0 border w-fit text-xs"
+      >
+        <button
+          className="hover:bg-foreground/5 px-3 pt-2 pb-1 text-[#252C32] text-left transition-colors"
+          type="button"
+          onClick={handleEdit}
+        >
+          Edit
+        </button>
+        <button
+          className="hover:bg-foreground/5 px-3 pt-1 pb-2 text-[#E60C02] text-left transition-colors"
+          type="button"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+export const CardHeader = ({ card }: { card: CardType }) => (
   <div className="flex justify-between gap-4 mt-4">
-    <h4 className="font-medium text-[#1A1919] text-base">{title}</h4>
-    <MenuButton />
+    <h4 className="font-medium text-[#1A1919] text-base">{card.title}</h4>
+    <MenuButton card={card} />
   </div>
 );

@@ -6,6 +6,6 @@ export type CardType = {
   title: string;
   priority: PriorityType;
   dueDate: string;
-  content: string;
+  description?: string;
   imageSrc?: string;
 };
