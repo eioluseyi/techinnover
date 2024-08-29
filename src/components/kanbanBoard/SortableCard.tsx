@@ -29,6 +29,14 @@ export const TaskCard = ({
     transition,
   };
 
+  const isTaskOverdue = new Date(card.dueDate) < new Date();
+
+  const taskStatus = (() => {
+    if (card.listId === "done") return "completed";
+    if (isTaskOverdue) return "overdue";
+    return "";
+  })();
+
   return (
     <div
       ref={setNodeRef}
@@ -56,7 +64,7 @@ export const TaskCard = ({
           architecto quos?
         </p>
         <div className="flex items-center gap-2 mt-4 font-medium text-xs">
-          <StatusFlag />
+          <StatusFlag status={taskStatus} />
           <span>{formatDate(new Date(card.dueDate), { month: "short" })}</span>
           <span className="ml-auto">
             {formatTime(new Date(card.dueDate), {
