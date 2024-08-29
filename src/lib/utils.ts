@@ -5,12 +5,23 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: Date): string {
-  const options: Intl.DateTimeFormatOptions = {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  };
+const defaultDateOptions: Intl.DateTimeFormatOptions = {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+};
 
-  return new Intl.DateTimeFormat("en-GB", options).format(date);
+export function formatDate(
+  date: Date,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  const newOptions = { ...defaultDateOptions, ...options };
+  return new Intl.DateTimeFormat("en-GB", newOptions).format(date);
+}
+
+export function formatTime(
+  time: Date,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  return new Intl.DateTimeFormat("en-GB", options).format(time);
 }

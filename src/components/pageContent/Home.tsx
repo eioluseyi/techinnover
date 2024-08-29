@@ -17,6 +17,60 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { TaskCard } from "@/components/kanbanBoard/SortableCard";
 import { useAppContext } from "@/components/kanbanBoard/contexts";
 import { TaskList } from "@/components/kanbanBoard/List";
+import { CardType, PriorityType } from "@/components/kanbanBoard/types";
+
+const initialCards: CardType[] = [
+  {
+    id: "card1",
+    content: "Task 1",
+    listId: "todo",
+    title: "First",
+    priority: "LOW",
+    dueDate: new Date().toString(),
+    imageSrc: "https://picsum.photos/seed/picsum/200/300",
+  },
+  {
+    id: "card2",
+    content: "Task 2",
+    listId: "inprogress",
+    title: "Firstond",
+    priority: "MEDIUM",
+    dueDate: new Date(1600000000000).toString(),
+    imageSrc: "https://picsum.photos/seed/picsum/200/300",
+  },
+  {
+    id: "card3",
+    content: "Task 3",
+    listId: "done",
+    title: "Ford",
+    priority: "HIGH",
+    dueDate: new Date(1800000000000).toString(),
+  },
+  {
+    id: "card4",
+    content: "Task 4",
+    listId: "done",
+    title: "Feet",
+    priority: "LOW",
+    dueDate: new Date().toString(),
+  },
+  {
+    id: "card5",
+    content: "Task 5",
+    listId: "done",
+    title: "Seat",
+    priority: "MEDIUM",
+    dueDate: new Date(1850000000000).toString(),
+  },
+  {
+    id: "card6",
+    content: "Task 6",
+    listId: "done",
+    title: "Se'un",
+    priority: "HIGH",
+    dueDate: new Date(1720000000000).toString(),
+  },
+];
 
 const HomeContent = () => {
   const { activeCardId, setActiveCardId } = useAppContext();
@@ -25,25 +79,7 @@ const HomeContent = () => {
     { id: "inprogress", title: "In Progress" },
     { id: "done", title: "Done" },
   ]);
-
-  const [cards, setCards] = useState([
-    { id: "card1", content: "Task 1", listId: "todo" },
-    { id: "card2", content: "Task 2", listId: "inprogress" },
-    { id: "card3", content: "Task 3", listId: "done" },
-    { id: "card4", content: "Task 4", listId: "done" },
-    { id: "card5", content: "Task 5", listId: "done" },
-    { id: "card6", content: "Task 6", listId: "done" },
-    { id: "card7", content: "Task 7", listId: "done" },
-    { id: "card8", content: "Task 8", listId: "done" },
-    { id: "card9", content: "Task 9", listId: "done" },
-    { id: "card10", content: "Task 10", listId: "done" },
-    { id: "card11", content: "Task 11", listId: "done" },
-    { id: "card12", content: "Task 12", listId: "done" },
-    { id: "card13", content: "Task 13", listId: "done" },
-    { id: "card14", content: "Task 14", listId: "done" },
-    { id: "card15", content: "Task 15", listId: "done" },
-    { id: "card16", content: "Task 16", listId: "done" },
-  ]);
+  const [cards, setCards] = useState<CardType[]>(initialCards);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
