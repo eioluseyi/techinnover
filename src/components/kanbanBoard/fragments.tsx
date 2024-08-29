@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
@@ -107,6 +108,10 @@ const MenuButton = ({ card }: { card: CardType }) => {
       updatingSet.splice(toBeDeletedIdx, 1);
 
       return updatingSet;
+    });
+
+    toast({
+      title: "Task Deleted"
     });
   };
 

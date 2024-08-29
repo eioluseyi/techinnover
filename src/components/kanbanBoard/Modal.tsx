@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import {
   cn,
   combineDateTimeToISOString,
@@ -92,6 +93,10 @@ const Modal = () => {
     });
 
     handleCloseModal();
+
+    toast({
+      title: "Task Updated",
+    });
   };
 
   const handleCreate = async (data: PayloadType) => {
@@ -116,6 +121,10 @@ const Modal = () => {
     setCards((prev) => [...prev, newData]);
 
     handleCloseModal();
+
+    toast({
+      title: "Task Created",
+    });
   };
 
   const handleSubmit = (evt: FormEvent) => {
@@ -155,7 +164,7 @@ const Modal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onOpenChange} modal>
-      <DialogContent>
+      <DialogContent aria-describedby="Modal">
         <DialogHeader>
           <DialogTitle>{titleText}</DialogTitle>
         </DialogHeader>

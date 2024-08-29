@@ -140,6 +140,11 @@ export const getFilePath = async (file: File | null) => {
       reject(new Error("Error reading file")); // Reject on error
     };
 
+    console.log({ file });
+
+    if (file.webkitRelativePath.startsWith("http"))
+      return resolve(file.webkitRelativePath);
+
     reader.readAsDataURL(file); // Start reading the file
   });
 };
