@@ -27,7 +27,7 @@ export default function RootLayout({
           </aside>
           <main className="flex flex-col flex-1 p-8 max-h-full overflow-hidden">
             <TopBar />
-            <div className="flex-1 px-1.5 pt-4 overflow-hidden">{children}</div>
+            <div className="flex-1 pt-4 overflow-hidden">{children}</div>
           </main>
         </div>
       </body>

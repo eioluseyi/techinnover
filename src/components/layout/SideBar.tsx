@@ -44,6 +44,7 @@ const Logo = () => (
       alt={"Techinnover Logo"}
       width={175}
       height={38}
+      className="w-auto object-contain"
     />
   </div>
 );
