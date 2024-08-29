@@ -27,7 +27,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const localStorageCards: CardType[] = JSON.parse(
-    localStorage.getItem("cards") || "[]"
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("cards") || "[]"
+      : "[]"
   );
   const initialCards = localStorageCards?.length
     ? localStorageCards
