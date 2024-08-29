@@ -81,17 +81,17 @@ const FileInput = ({
     if (!files?.[0]) return;
 
     const interval = setInterval(() => {
+      let amount = 0;
       setProgress((prev) => {
         const random = Math.random();
-        const amount = prev + random * 10;
+        amount = prev + random * 10;
 
         if (amount >= 100) {
-          clearInterval(interval);
           return 100;
         }
-
         return amount;
       });
+      if (amount >= 100) clearInterval(interval);
     }, 100);
 
     return () => clearInterval(interval);

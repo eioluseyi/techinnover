@@ -4,6 +4,7 @@ import { CardType, PriorityType } from "@/components/kanbanBoard/types";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -191,6 +192,7 @@ const Modal = () => {
       <DialogContent aria-describedby="Modal">
         <DialogHeader>
           <DialogTitle>{titleText}</DialogTitle>
+          <DialogDescription className="h-0"></DialogDescription>
         </DialogHeader>
         <form className="gap-5 grid py-8" onSubmit={handleSubmit}>
           <div className="items-center gap-1.5 grid w-full">
