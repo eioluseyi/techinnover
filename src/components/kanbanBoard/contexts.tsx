@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { CardType } from "@/components/kanbanBoard/types";
 import { defaultCards } from "@/components/kanbanBoard/constants";
@@ -26,27 +26,34 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     null
   );
 
-  const localStorageCards: CardType[] = JSON.parse(
-    typeof window !== "undefined"
-      ? window.localStorage.getItem("cards") || "[]"
-      : "[]"
-  );
-  const initialCards = localStorageCards?.length
-    ? localStorageCards
-    : defaultCards;
-
-  const [cards, setCards] = useState<CardType[]>(initialCards);
+  const [cards, setCards] = useState<CardType[]>([]);
   const [currentListId, setCurrentListId] = useState("");
   const [currentCard, setCurrentCard] = useState<CardType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const isInitialRender = useRef(true);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
   useEffect(() => {
-    const cardString = JSON.stringify(cards || []);
+    if (isInitialRender.current) {
+      const localStorageCards: CardType[] = JSON.parse(
+        typeof window !== "undefined"
+          ? window.localStorage.getItem("cards") || "[]"
+          : "[]"
+      );
+      const initialCards = localStorageCards?.length
+        ? localStorageCards
+        : defaultCards;
 
-    localStorage.setItem("cards", cardString);
+      setCards(initialCards);
+      isInitialRender.current = false; // Set to false after the first render
+    } else {
+      const cardString = JSON.stringify(cards || []);
+
+      localStorage.setItem("cards", cardString);
+    }
   }, [cards]);
 
   return (
