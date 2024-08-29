@@ -30,8 +30,8 @@ export default function RootLayout({
             <TopBar />
             <div className="flex-1 pt-4 overflow-hidden">{children}</div>
           </main>
-          <Toaster />
         </div>
+        <Toaster />
       </body>
     </html>
   );

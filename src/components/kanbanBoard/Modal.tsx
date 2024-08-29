@@ -139,6 +139,30 @@ const Modal = () => {
       time,
     };
 
+    if (!payload.taskName)
+      return toast({
+        title: "Task name cannot be empty",
+        variant: "destructive",
+      });
+
+    if (!payload.priority)
+      return toast({
+        title: "You must set your priorities right",
+        variant: "destructive",
+      });
+
+    if (!payload.deadline)
+      return toast({
+        title: "You need a deadline for this task",
+        variant: "destructive",
+      });
+
+    if (!payload.time)
+      return toast({
+        title: "The task has to be timebound",
+        variant: "destructive",
+      });
+
     if (isEditing) return handleUpdate(payload);
     handleCreate(payload);
   };
