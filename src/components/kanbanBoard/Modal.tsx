@@ -241,7 +241,7 @@ const Modal = () => {
               setFile={setCover}
             />
           </div>
-          <div className="gap-4 grid grid-cols-2 w-full">
+          <div className="gap-4 grid lg:grid-cols-2 w-full">
             <div className="items-center gap-1.5 grid">
               <Label htmlFor="deadline">Deadline</Label>
               <Input

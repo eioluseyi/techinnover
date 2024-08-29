@@ -94,7 +94,7 @@ const HomeContent = () => {
         onDragEnd={handleDragEnd}
         collisionDetection={closestCorners}
       >
-        <div className="gap-4 grid grid-cols-3 h-full max-h-full overflow-x-auto overflow-y-hidden">
+        <div className="gap-4 grid grid-cols-[repeat(3,minmax(300px,400px))] lg:bg-red-600_ h-full max-h-full overflow-x-auto overflow-y-hidden">
           {lists.map((list) => (
             <TaskList
               key={list.id}

@@ -17,13 +17,21 @@ const ArrowLeft = () => (
 );
 
 const TopBar = () => (
-  <div className="flex justify-between items-center gap-10 mb-8">
+  <div className="flex flex-wrap justify-between items-center gap-4 lg:gap-10 mb-8">
     <div className="flex justify-between items-center gap-4 max-w-fit">
-      <span className="font-semibold text-3xl">{formatDate(new Date())}</span>
-      <button type="button" className="p-2 border rounded-full">
+      <span className="font-semibold text-xl lg:text-3xl whitespace-nowrap">
+        {formatDate(new Date())}
+      </span>
+      <button
+        type="button"
+        className="lg:inline-block hidden p-2 border rounded-full"
+      >
         <ArrowLeft />
       </button>
-      <button type="button" className="p-2 border rounded-full rotate-180">
+      <button
+        type="button"
+        className="lg:inline-block hidden p-2 border rounded-full rotate-180"
+      >
         <ArrowLeft />
       </button>
     </div>

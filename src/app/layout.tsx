@@ -23,10 +23,10 @@ export default function RootLayout({
         className={`${inter.className} h-svh max-h-[100svh] overflow-hidden flex flex-col font-lato`}
       >
         <div className="flex flex-1 max-h-full overflow-hidden">
-          <aside className="w-[17rem] max-w-full max-h-full overflow-x-hidden overflow-y-auto">
+          <aside className="sm:block hidden lg:w-[17rem] max-w-full max-h-full overflow-x-hidden overflow-y-auto">
             <SideBar />
           </aside>
-          <main className="flex flex-col flex-1 p-8 max-h-full overflow-hidden">
+          <main className="flex flex-col flex-1 p-3 lg:p-8 max-h-full overflow-hidden">
             <TopBar />
             <div className="flex-1 pt-4 overflow-hidden">{children}</div>
           </main>

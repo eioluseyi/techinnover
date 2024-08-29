@@ -44,7 +44,7 @@ const Logo = () => (
       alt={"Techinnover Logo"}
       width={175}
       height={38}
-      className="w-auto object-contain"
+      className="w-20 lg:w-auto object-contain"
     />
   </div>
 );
@@ -58,7 +58,7 @@ const NavLink = ({ icon, title, isActive }: (typeof navLinks)[number]) => (
     )}
   >
     {icon}
-    <span>{title}</span>
+    <span className="lg:inline hidden">{title}</span>
   </Link>
 );
 

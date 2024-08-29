@@ -20,7 +20,7 @@ const SearchIcon = ({ className = "" }) => (
 
 export default function SearchInput() {
   return (
-    <div className="relative">
+    <div className="relative min-w-52">
       <SearchIcon className="top-1/2 left-3 absolute w-6 h-6 text-gray-400 transform -translate-y-1/2" />
       <Input
         type="text"
