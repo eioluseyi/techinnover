@@ -46,7 +46,7 @@ export const TaskCard = ({
         isDragOverlay && "border-[#7fa1e4] border shadow-md rotate-[3deg]",
         !isDragOverlay &&
           isActiveCard &&
-          "text-[#e6ecf6] bg-[#e6ecf6] outline-dashed outline-[#7fa1e4]"
+          "text-[#e6ecf6] *:opacity-0 bg-[#e6ecf6] outline-dashed outline-[#7fa1e4]"
       )}
     >
       <div

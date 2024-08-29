@@ -7,7 +7,7 @@ import {
 } from "@dnd-kit/sortable";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import SortablePlaceholder from "@/components/kanbanBoard/SortablePlaceholder";
+import TaskListPlaceholder from "@/components/kanbanBoard/TaskListPlaceholder";
 import { TaskCard } from "@/components/kanbanBoard/TaskCard";
 import { useAppContext } from "@/components/kanbanBoard/contexts";
 import { CardType } from "@/components/kanbanBoard/types";
@@ -70,7 +70,7 @@ export const TaskList = ({
             cards.length === 0 && "grid-rows-1"
           )}
         >
-          <SortablePlaceholder id={list.id} isActive={cards.length === 0} />
+          <TaskListPlaceholder id={list.id} isActive={cards.length === 0} />
           {cards.map((card) => (
             <TaskCard key={card.id} card={card} />
           ))}

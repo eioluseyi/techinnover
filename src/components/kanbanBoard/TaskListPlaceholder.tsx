@@ -3,7 +3,7 @@ import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const SortablePlaceholder = ({
+const TaskListPlaceholder = ({
   id = 0,
   isActive,
 }: {
@@ -33,4 +33,4 @@ const SortablePlaceholder = ({
   );
 };
 
-export default SortablePlaceholder;
+export default TaskListPlaceholder;
